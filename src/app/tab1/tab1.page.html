@@ -15,15 +15,17 @@
     </ion-fab-button>
   </ion-fab>
   <ion-list>
+    @for(colab of listaColabs; track colab){
     <ion-item button detail="true">
       <ion-avatar slot="start">
         <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
       </ion-avatar>
       <ion-label>
-        <h2>Ana García</h2>
-        <p>Desarrolladora</p>
+        <h2>{{colab.strNombre}}</h2>
+        <p>{{colab.strPuesto}}</p>
       </ion-label>
     </ion-item>
+  }
   </ion-list>
   }@else {
   <div class="welcome-container">

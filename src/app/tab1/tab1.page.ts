@@ -3,6 +3,7 @@ import { IonHeader,IonFab,IonFabButton, IonToolbar, IonTitle, IonContent, IonSea
 import {businessSharp,add} from 'ionicons/icons';
 import {addIcons} from 'ionicons';
 import { Router } from '@angular/router';
+import { Colabs } from '../services/colabs';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -11,7 +12,17 @@ import { Router } from '@angular/router';
 })
 export class Tab1Page {
   private router = inject(Router);
+  private colabs = inject(Colabs);
+  listaColabs:any[]=[]
+  ngOnInit() {
+    this.colabs.getColabs().subscribe((data)=>{
+      console.log(data.Respuesta[0].strNombre)
+      this.listaColabs=data.Respuesta
+    })
+  }
+
   sihay=true
+
   constructor() {
     addIcons({
       'business-sharp': businessSharp,

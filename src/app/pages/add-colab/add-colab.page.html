@@ -1,12 +1,132 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/tab1" text=""></ion-back-button>
+      <ion-button color="dark" aria-label="Volver">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>Colaborador</ion-title>
+
+    <ion-title>Agregar colaborador</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  
+<ion-content class="ion-padding">
+  <div style="max-width: 420px; margin: 0 auto;">
+
+    <!-- Foto del colaborador -->
+    <div
+      style="
+        position: relative;
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 20px;
+      "
+    >
+      <ion-icon
+        name="person-circle"
+        color="medium"
+        style="font-size: 96px;"
+      ></ion-icon>
+
+      <ion-button
+        size="small"
+        aria-label="Agregar fotografía"
+        style="
+          position: absolute;
+          right: 0;
+          bottom: 4px;
+          width: 32px;
+          height: 32px;
+          margin: 0;
+          --border-radius: 50%;
+          --padding-start: 0;
+          --padding-end: 0;
+        "
+      >
+        <ion-icon slot="icon-only" name="camera-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+    <!-- Campos -->
+    <div style="display: grid; gap: 12px;">
+
+      <div>
+        <ion-label><strong>Nombre</strong></ion-label>
+        <ion-input
+          mode="md"
+          fill="outline"
+          type="text"
+          placeholder="Nombre completo"
+          aria-label="Nombre"
+          style="min-height: 42px; --border-radius: 8px;"
+        ></ion-input>
+      </div>
+
+      <div>
+        <ion-label><strong>Correo electrónico</strong></ion-label>
+        <ion-input
+          mode="md"
+          fill="outline"
+          type="email"
+          placeholder="correo@empresa.com"
+          aria-label="Correo electrónico"
+          style="min-height: 42px; --border-radius: 8px;"
+        ></ion-input>
+      </div>
+
+      <div>
+        <ion-label><strong>Teléfono</strong></ion-label>
+        <ion-input
+          mode="md"
+          fill="outline"
+          type="tel"
+          placeholder="Número de teléfono"
+          aria-label="Teléfono"
+          style="min-height: 42px; --border-radius: 8px;"
+        ></ion-input>
+      </div>
+
+      <div>
+        <ion-label><strong>Puesto</strong></ion-label>
+        <ion-select
+          mode="md"
+          fill="outline"
+          placeholder="Selecciona un puesto"
+          aria-label="Puesto"
+          style="min-height: 42px; --border-radius: 8px;"
+        ></ion-select>
+      </div>
+
+      <div>
+        <ion-label><strong>Departamento</strong></ion-label>
+        <ion-select
+          mode="md"
+          fill="outline"
+          placeholder="Selecciona un departamento"
+          aria-label="Departamento"
+          style="min-height: 42px; --border-radius: 8px;"
+        ></ion-select>
+      </div>
+
+      <div>
+        <ion-label><strong>Fecha de ingreso</strong></ion-label>
+        <ion-input
+          mode="md"
+          fill="outline"
+          type="date"
+          aria-label="Fecha de ingreso"
+          style="min-height: 42px; --border-radius: 8px;"
+        ></ion-input>
+      </div>
+
+      <ion-button
+        expand="block"
+        type="button"
+        style="margin: 0; --border-radius: 8px;"
+      >
+        Guardar
+      </ion-button>
+
+    </div>
+  </div>
 </ion-content>
