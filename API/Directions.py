@@ -47,5 +47,17 @@ def DeleteColab():
     except Exception as e:
         print("Error en DeleteColab",e)
         return jsonify(mensajitos.err500)
+
+@app.route('/postcolabs',methods=['POST'])
+@cross_origin(allow_headers=['Content-Type'])
+def PostColabs():
+    try:
+        objResult=callmethod.fnPostColabs(request.json)
+        return objResult
+    except Exception as e:
+        print("Error en PostColabs",e)
+        return jsonify(mensajitos.err500)
+
+ 
 if __name__=='__main__':
     app.run(host="0.0.0.0", port=5000, debug=True, threaded=True)

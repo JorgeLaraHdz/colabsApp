@@ -1,9 +1,10 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="dark" aria-label="Volver">
-        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
-      </ion-button>
+      <ion-back-button
+        text=""
+        icon="chevron-back-outline"
+      ></ion-back-button>
     </ion-buttons>
 
     <ion-title>Agregar colaborador</ion-title>
@@ -11,122 +12,129 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div style="max-width: 420px; margin: 0 auto;">
-
-    <!-- Foto del colaborador -->
-    <div
-      style="
-        position: relative;
-        width: 96px;
-        height: 96px;
-        margin: 0 auto 20px;
-      "
-    >
+  <form
+    class="formulario"
+    novalidate
+    (submit)="guardar($event)"
+  >
+    <div class="foto">
       <ion-icon
         name="person-circle"
         color="medium"
-        style="font-size: 96px;"
+        aria-hidden="true"
       ></ion-icon>
-
-      <ion-button
-        size="small"
-        aria-label="Agregar fotografía"
-        style="
-          position: absolute;
-          right: 0;
-          bottom: 4px;
-          width: 32px;
-          height: 32px;
-          margin: 0;
-          --border-radius: 50%;
-          --padding-start: 0;
-          --padding-end: 0;
-        "
-      >
-        <ion-icon slot="icon-only" name="camera-outline"></ion-icon>
-      </ion-button>
     </div>
 
-    <!-- Campos -->
-    <div style="display: grid; gap: 12px;">
+    <!-- Nombre -->
+    <ion-input
+      mode="md"
+      fill="outline"
+      type="text"
+      label="Nombre"
+      labelPlacement="stacked"
+      placeholder="Nombre del colaborador"
+      autocomplete="given-name"
+      [formField]="formulario.strNombre"
+      [class.ion-invalid]="formulario.strNombre().invalid()"
+      [class.ion-touched]="formulario.strNombre().touched()"
+      errorText="Escribe el nombre."
+    ></ion-input>
 
-      <div>
-        <ion-label><strong>Nombre</strong></ion-label>
-        <ion-input
-          mode="md"
-          fill="outline"
-          type="text"
-          placeholder="Nombre completo"
-          aria-label="Nombre"
-          style="min-height: 42px; --border-radius: 8px;"
-        ></ion-input>
-      </div>
+    <!-- Apellido -->
+    <ion-input
+      mode="md"
+      fill="outline"
+      type="text"
+      label="Apellido"
+      labelPlacement="stacked"
+      placeholder="Apellido del colaborador"
+      autocomplete="family-name"
+      [formField]="formulario.strApellido"
+      [class.ion-invalid]="formulario.strApellido().invalid()"
+      [class.ion-touched]="formulario.strApellido().touched()"
+      errorText="Escribe el apellido."
+    ></ion-input>
 
-      <div>
-        <ion-label><strong>Correo electrónico</strong></ion-label>
-        <ion-input
-          mode="md"
-          fill="outline"
-          type="email"
-          placeholder="correo@empresa.com"
-          aria-label="Correo electrónico"
-          style="min-height: 42px; --border-radius: 8px;"
-        ></ion-input>
-      </div>
-
-      <div>
-        <ion-label><strong>Teléfono</strong></ion-label>
-        <ion-input
-          mode="md"
-          fill="outline"
-          type="tel"
-          placeholder="Número de teléfono"
-          aria-label="Teléfono"
-          style="min-height: 42px; --border-radius: 8px;"
-        ></ion-input>
-      </div>
-
-      <div>
-        <ion-label><strong>Puesto</strong></ion-label>
-        <ion-select
-          mode="md"
-          fill="outline"
-          placeholder="Selecciona un puesto"
-          aria-label="Puesto"
-          style="min-height: 42px; --border-radius: 8px;"
-        ></ion-select>
-      </div>
-
-      <div>
-        <ion-label><strong>Departamento</strong></ion-label>
-        <ion-select
-          mode="md"
-          fill="outline"
-          placeholder="Selecciona un departamento"
-          aria-label="Departamento"
-          style="min-height: 42px; --border-radius: 8px;"
-        ></ion-select>
-      </div>
-
-      <div>
-        <ion-label><strong>Fecha de ingreso</strong></ion-label>
-        <ion-input
-          mode="md"
-          fill="outline"
-          type="date"
-          aria-label="Fecha de ingreso"
-          style="min-height: 42px; --border-radius: 8px;"
-        ></ion-input>
-      </div>
-
-      <ion-button
-        expand="block"
-        type="button"
-        style="margin: 0; --border-radius: 8px;"
+    <!-- Puesto -->
+    <div>
+      <ion-select
+        mode="md"
+        fill="outline"
+        label="Puesto"
+        labelPlacement="stacked"
+        placeholder="Selecciona un puesto"
+        [formField]="formulario.strPuesto"
+        [class.ion-invalid]="formulario.strPuesto().invalid()"
+        [class.ion-touched]="formulario.strPuesto().touched()"
       >
-        Guardar
-      </ion-button>
+        @for (puesto of puestos; track puesto) {
+          <ion-select-option [value]="puesto">
+            {{ puesto }}
+          </ion-select-option>
+        }
+      </ion-select>
 
+      @if (
+        formulario.strPuesto().touched() &&
+        formulario.strPuesto().invalid()
+      ) {
+        <p class="mensaje error" role="alert">
+          Selecciona un puesto.
+        </p>
+      }
     </div>
-  </div>
+
+    <!-- RFC -->
+    <ion-input
+      mode="md"
+      fill="outline"
+      type="text"
+      label="RFC"
+      labelPlacement="stacked"
+      placeholder="Ejemplo: GODE561231GR8"
+      autocapitalize="characters"
+      [formField]="formulario.strRfc"
+      [class.ion-invalid]="formulario.strRfc().invalid()"
+      [class.ion-touched]="formulario.strRfc().touched()"
+      errorText="Escribe un RFC con formato válido de 12 o 13 caracteres."
+    ></ion-input>
+
+    <!-- Sueldo -->
+    <ion-input
+      mode="md"
+      fill="outline"
+      type="number"
+      inputmode="decimal"
+      step="0.01"
+      label="Sueldo"
+      labelPlacement="stacked"
+      placeholder="Ejemplo: 12000.00"
+      [formField]="formulario.floatSueldo"
+      [class.ion-invalid]="formulario.floatSueldo().invalid()"
+      [class.ion-touched]="formulario.floatSueldo().touched()"
+      errorText="Ingresa un sueldo válido, mayor o igual a cero."
+    ></ion-input>
+
+    <!-- Error de la petición -->
+    @if (mensajeError()) {
+      <p class="mensaje error" role="alert">
+        {{ mensajeError() }}
+      </p>
+    }
+
+    <!-- Confirmación -->
+    @if (mensajeExito()) {
+      <p class="mensaje exito" role="status">
+        {{ mensajeExito() }}
+      </p>
+    }
+
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="formulario().submitting()"
+    >
+      {{ formulario().submitting() ? 'Guardando...' : 'Guardar' }}
+    </ion-button>
+  </form>
 </ion-content>

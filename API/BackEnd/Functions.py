@@ -74,3 +74,29 @@ def fnDeleteColab(data):
     except Exception as e:
         print("Error en fnDeleteColab",e)
         return jsonify(mensajitos.err500)
+
+def fnPostColabs(data):
+    try:
+        objColab = {
+            "floatSueldo": float(data["floatSueldo"]),
+            "strApellido": data["strApellido"],
+            "strNombre": data["strNombre"],
+            "strPuesto": data["strPuesto"],
+            "strRfc": data["strRfc"]
+        }
+
+        objQuery = dbColabs.insert_one(objColab)
+
+        if objQuery.acknowledged:
+            return jsonify(mensajitos.succ200), 201
+
+        return jsonify(mensajitos.err500), 500
+
+    except (KeyError, TypeError, ValueError):
+        return jsonify({
+            "mensaje": "Faltan campos o el sueldo no es válido."
+        }), 400
+
+    except Exception as e:
+        print("Error en fnPostColabs", e)
+        return jsonify(mensajitos.err500), 500
